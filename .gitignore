@@ -13,7 +13,6 @@ _site
 vendor
 Gemfile.lock
 
-
 # rubygem
 *.gem
 
