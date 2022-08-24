@@ -1,15 +1,15 @@
 ---
-title: "[GitHub Pages] Jekyll 설치 빙법"
-date: 2022-08-15 23:19:15 +0900
+title: "[GitHub Pages] Jekyll 설치 방법"
+date: 2022-08-16 23:19:15 +0900
 categories: [GitHub, GitHub Pages]
 tags: [github pages, jekyll]
 ---
-
+<hr>
 저번에는 GitHub Pages를 이용하여 블로그를 생성을 해보았다.
 
 이번에는 Jekyll를 이용하여 홈페이지를 꾸며볼것이다.
 
-# 1.Jekyll이란 무엇인가? 
+## Jekyll이란 무엇인가? 
 여기서 잠깐!
 
 Jekyll에 대해 좀 알아보고 넘어가보고자 한다.
@@ -34,7 +34,9 @@ Jekyll에 대해 좀 알아보고 넘어가보고자 한다.
 
 <br>
 
-# 2. Ruby 설치
+
+
+## Ruby 설치
 
 * 필자는 M1 MAC을 사용하고있으므로 brew로 설치를 진행한다
 

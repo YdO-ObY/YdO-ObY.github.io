@@ -5,7 +5,7 @@ categories: [GitHub, GitHub Pages]
 tags: [github pages, jekyll, chripy]
 ---
 
-
+<hr>
 
 블로그도 잘 만들어졌겟다. <br> 이제 글을 작성하는법을 알아보려한다.
 

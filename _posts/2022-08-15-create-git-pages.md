@@ -5,7 +5,7 @@ categories: [GitHub, GitHub Pages]
 tags: [github, github pages]
 ---
 
-
+<hr>
 이제부터라도 기록을 남기면서 생활을 해보고자 블로그를 하려고 한다.
 
 Naver Blog, Notion을 생각을 하였지만...
@@ -15,7 +15,7 @@ Naver Blog, Notion을 생각을 하였지만...
 <br>
 <br>
 
-# 1. Github Repository를 생성한다.
+## Github Repository를 생성한다.
 ![image](https://user-images.githubusercontent.com/69522086/183098208-ef6d1ae9-6100-4157-b819-4cbfc1c2d771.png)
 
 Repository 이름을 깃허브 username.github.io로 생성한다.
@@ -26,7 +26,7 @@ README.md 파일은 나중에 테마를 적용할때 테마 프로젝트안에 R
 
 <br>
 
-# 2. Repository를 clone 하기
+## Repository를 clone 하기
 
 생성한 Repository를 들어가서 Code를 주소를 복사한다.
 
@@ -38,7 +38,7 @@ README.md 파일은 나중에 테마를 적용할때 테마 프로젝트안에 R
 
     git clone (복사된 주소)
 
-# 3. index.html 생성하기
+## index.html 생성하기
 
 Repository를 복사한 디렉토리에 가서 index.html 파일을 생성한다.
 

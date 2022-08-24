@@ -1,6 +1,6 @@
 ---
 title: "[GitHub Pages] Jekyll Thema 적용방법"
-date: 2022-08-15 22:56:32 +0900
+date: 2022-08-17 22:56:32 +0900
 categories: [GitHub, GitHub Pages]
 tags: [github pages, jekyll]
 ---
@@ -205,7 +205,7 @@ Github repo의 상단 탭에서 `Setting` 으로 들어가서 `master` branch를
 
 <hr>
 
-## 오류발생
+## <span style="color:red">오류발생</span>
 
 테마 설정 하면서 발생한 오류들을 적어본다.
 
@@ -277,6 +277,7 @@ check_init() {
     웹으로 들어가 git repo에서 Gemfile.lock을 삭제하고 커밋을 올린다.
 
 ### 배포오류 2
+
 
     증상 :
     refusing to allow a Personal Access Token to create or update workflow `.github/workflows/pages-deploy.yml` without `workflow` scope
