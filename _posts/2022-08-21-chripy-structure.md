@@ -1,8 +1,8 @@
 ---
-title: TITLE
-date: 2002-08-21 23:41:30 +0800
-categories: [TEST,TEST2]
-tags: [TEST]
+title: "[GitHub Pages] Chirpy Thema 구성 파악"
+date: 2022-08-15 23:31:15 +0900
+categories: [GitHub, GitHub Pages]
+tags: [github pages, jekyll, chripy]
 ---
 
 이번에는 Chirpy Thema 구성파악을 해보려한다.

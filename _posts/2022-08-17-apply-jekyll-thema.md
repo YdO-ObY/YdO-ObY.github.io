@@ -1,11 +1,8 @@
 ---
-title: Blog 개설하기
-author: YdO-ObY
-date: 2022-08-15 11:33:00 +0800
-categories: [Blogging, Demo]
-tags: [typography]
-math: true
-mermaid: true
+title: "[GitHub Pages] Jekyll Thema 적용방법"
+date: 2022-08-15 22:56:32 +0900
+categories: [GitHub, GitHub Pages]
+tags: [github pages, jekyll]
 ---
 
 <hr>
@@ -278,6 +275,22 @@ check_init() {
 
     해결 :
     웹으로 들어가 git repo에서 Gemfile.lock을 삭제하고 커밋을 올린다.
+
+### 배포오류 2
+
+    증상 :
+    refusing to allow a Personal Access Token to create or update workflow `.github/workflows/pages-deploy.yml` without `workflow` scope
+    git push 오류 발생
+
+    원인 :
+    git repo에서 workflows 권한이 없어 발생
+ 
+
+    해결 :
+    git account Setting - Developer settings - Personal access tokens - 기기에 적용된 key 클릭 - workflow 체크박스 클릭 - Update token
+    설정이 끝나고 배포 재시도를 한다.
+    (repo Setting이 아닌 account Setting)
+    
 
 
 

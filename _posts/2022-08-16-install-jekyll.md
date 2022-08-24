@@ -1,6 +1,8 @@
 ---
-layout: single
-title: "[GitHub Pages] GitHub Pages를 이용하여 블로그를 운영해보자! (2)"
+title: "[GitHub Pages] Jekyll 설치 빙법"
+date: 2022-08-15 23:19:15 +0900
+categories: [GitHub, GitHub Pages]
+tags: [github pages, jekyll]
 ---
 
 저번에는 GitHub Pages를 이용하여 블로그를 생성을 해보았다.
@@ -28,7 +30,7 @@ Jekyll에 대해 좀 알아보고 넘어가보고자 한다.
 
 이정도 까지만 알고 넘어가자
 
-더 많은 정보를 알고싶다면 [Jekyll 지킬이란?](cheershennah.tistory.com/214) 여기로 넘어가서 보거나, 구글링을 통하여 공부를 해보자
+더 많은 정보를 알고싶다면 [Jekyll 지킬이란?](https://cheershennah.tistory.com/214) 여기로 넘어가서 보거나, 구글링을 통하여 공부를 해보자
 
 <br>
 

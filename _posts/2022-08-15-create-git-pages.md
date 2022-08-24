@@ -1,7 +1,10 @@
 ---
-layout: single
-title: "[GitHub Pages] GitHub Pages를 이용하여 블로그를 운영해보자! (1)"
+title: "[GitHub Pages] GitHub Pages를 이용하여 블로그 개설하기"
+date: 2022-08-15 22:41:30 +0900
+categories: [GitHub, GitHub Pages]
+tags: [github, github pages]
 ---
+
 
 이제부터라도 기록을 남기면서 생활을 해보고자 블로그를 하려고 한다.
 

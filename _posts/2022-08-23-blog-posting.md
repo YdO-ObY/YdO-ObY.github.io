@@ -1,15 +1,15 @@
 ---
-title: TITLE
+title: "[GitHub Pages] 블로그에 포스팅 하는 방법"
 date: 2022-08-22 23:41:30 +0800
-categories: [tttt, ttt]
-tags: [test]
+categories: [GitHub, GitHub Pages]
+tags: [github pages, jekyll, chripy]
 ---
 
 
 
 블로그도 잘 만들어졌겟다. <br> 이제 글을 작성하는법을 알아보려한다.
 
-공식 문서에 설명이 잘 되어있지만 정리 할겸 포스팅은 남겨본다.
+[공식 문서](https://chirphy22.netlify.app/posts/write-a-new-post/)에 설명이 잘 되어있지만 정리 할겸 포스팅은 남겨본다.
 
 
 ## 파일생성
