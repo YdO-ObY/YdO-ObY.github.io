@@ -1,5 +1,5 @@
 ---
-title: "[Game Design] 게임 기획의 구조"
+title: "[Game Design] 게임 기획의 기본구조"
 date: 2022-12-09 22:41:30 +0900
 categories: [GameDesign]
 tags: [GameDesign]
@@ -8,9 +8,9 @@ tags: [GameDesign]
 
 이번에는 게임 기획에 관하여 공부한 것을 정리해보려 한다.
 
-처음에는 게임기획의 전체 구조를 정리 할 것이다.
+처음에는 게임기획의 기본 구조를 정리 할 것이다.
 
-<font style="color:green">게임 기획(Game Design)은 크게 다섯가지로 나뉜다.</font>
+<font style="color:green">게임 기획(Game Design)은 크게 다섯가지구조로 나뉜다.</font>
 
 1. 시스템 기획
 2. 콘텐츠 기획
@@ -55,7 +55,7 @@ tags: [GameDesign]
 
 ## <font style="color:yellow">레벨 디자인</font>
 
-    게임 구성요소를 이용하여 여러 스테이지를 만드는것
+    게임 구성요소를 이용하여 여러 스테이지를 만들어 난이도 조정을 하는 작업
 
     (예시)
     퍼즐 게임 - 아이템의 배치,스테이지별로 아이템을 다르게 배치를 하여 난이도 조정
