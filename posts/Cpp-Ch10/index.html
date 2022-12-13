@@ -1,0 +1,1839 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"><meta name="generator" content="Jekyll v4.3.1" /><meta property="og:title" content="[C++] Chapter.10 객체들 사이의 관계에 대해" /><meta property="og:locale" content="en" /><meta name="description" content="A minimal, responsive, and powerful Jekyll theme for presenting professional writing." /><meta property="og:description" content="A minimal, responsive, and powerful Jekyll theme for presenting professional writing." /><link rel="canonical" href="https://ydo-oby.github.io//posts/Cpp-Ch10/" /><meta property="og:url" content="https://ydo-oby.github.io//posts/Cpp-Ch10/" /><meta property="og:site_name" content="YdO-ObY" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2022-09-24T22:20:19+09:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="[C++] Chapter.10 객체들 사이의 관계에 대해" /><meta name="twitter:site" content="@twitter_username" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-12-06T21:59:37+09:00","datePublished":"2022-09-24T22:20:19+09:00","description":"A minimal, responsive, and powerful Jekyll theme for presenting professional writing.","headline":"[C++] Chapter.10 객체들 사이의 관계에 대해","mainEntityOfPage":{"@type":"WebPage","@id":"https://ydo-oby.github.io//posts/Cpp-Ch10/"},"url":"https://ydo-oby.github.io//posts/Cpp-Ch10/"}</script><title>[C++] Chapter.10 객체들 사이의 관계에 대해 | YdO-ObY</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="YdO-ObY"><meta name="application-name" content="YdO-ObY"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener("change", () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } } /* ModeToggle */ const toggle = new ModeToggle(); function flipMode() { if (toggle.hasMode) { if (toggle.isSysDarkPrefer) { if (toggle.isLightMode) { toggle.clearMode(); } else { toggle.setLight(); } } else { if (toggle.isDarkMode) { toggle.clearMode(); } else { toggle.setDark(); } } } else { if (toggle.isSysDarkPrefer) { toggle.setLight(); } else { toggle.setDark(); } } toggle.notify(); } /* flipMode() */ </script><body data-spy="scroll" data-target="#toc" data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/img/avatar3.PNG" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title mt-3"> <a href="/">YdO-ObY</a></div><div class="site-subtitle font-italic">나의 공부기록</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/YdO-ObY" aria-label="github" target="_blank" rel="noopener"> <i class="fab fa-github"></i> </a> <a href="https://twitter.com/twitter_username" aria-label="twitter" target="_blank" rel="noopener"> <i class="fab fa-twitter"></i> </a> <a href=" javascript:location.href = 'mailto:' + ['example','doamin.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>[C++] Chapter.10 객체들 사이의 관계에 대해</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>[C++] Chapter.10 객체들 사이의 관계에 대해</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1664025619" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Sep 24, 2022 </em> </span> <span> Updated <em class="" data-ts="1670331577" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Dec 6, 2022 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/YdO-ObY">YdO-ObY</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="6134 words"> <em>34 min</em> read</span></div></div></div><div class="post-content"><hr /><h2 id="객체들의-관계"><span class="mr-2">객체들의 관계</span><a href="#객체들의-관계" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+</pre><td class="rouge-code"><pre><span class="c1">// 객체들의 관계</span>
+<span class="c1">// Object Relationship</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//객체지향 프로그래밍을 할때 기능들을 정의를한다.</span>
+    <span class="c1">//기능들이 수행할떄 어떤 객체가 어떤 영향을 주는지, 무슨 일을 하는지 설계를 해야한다.</span>
+    <span class="c1">//여러 클래스를 구현함으로써 프로그래밍 언어로서 객체들을 만든다.</span>
+    <span class="c1">//클래스들 간의 관계가 많은 프로그램에 같은 패턴을 보여주는데 패턴에 대해 알아보자</span>
+    
+    <span class="c1">//관계 종류</span>
+    
+    <span class="cm">/*구성    Composition
+     Part-of
+     두뇌는 육체의 일부이다.
+     두뇌는 육체없이 존재 불가
+     두뇌는 육체의 전체를 알지 못한다.
+     관계의 형태 - 전체/부품 관계
+     전체(육체) / 부품(두뇌)
+     
+     다른클래스에 속하는가? - No
+     두뇌는 다른 육체에 속할 수 없다.
+     
+     멤버의 존재를 클래스가 관리 하는가? - Yes
+     육체 클래스가 두뇌를 관리를 한다.
+     
+     방향성 - 단방향
+     육체는 두뇌를 알고 있지만, 두뇌는 육체를 다알지는 못한다.
+     
+     
+     
+     */</span>
+    
+    
+    <span class="cm">/*집합    Aggregation
+     Has-a
+     어떤 사람이 자동차를 가지고 있다.
+     사람이 자동차의 소유원이 사라져도 자동차는 존재한다.
+     
+     관계의 형태 - 전체/부품 관계
+     전체(사람) / 부품(자동차)
+     
+     다른클래스에 속하는가? - Yes
+     자동차를 다른사람에게 파는것, 가족과 공유하는것 가능
+     
+     멤버의 존재를 클래스가 관리 하는가? - No
+     사람이 자동차를 팔아도 자동차는 존재한다.
+     
+     방향성 - 단방향
+     
+     
+     */</span>
+    
+    <span class="cm">/*연계    Association
+     Uses-a
+     환자는 의사의 치료를 받는다.
+     의사는 환자로부터 치료비를 받는다.
+     
+     서로 사용하는 관계 / 도움을 주는관계
+     하나의 환자를 하나의 의사만 보는것이아니라
+     여러 환자들이 여러 의사를 만날수있다.
+     반대로
+     여러 의사들이 여러 환자들을 치료할 수 있다.
+     관계의 형태 - 용도 외엔 무관
+     의사와 환자 관계는 치료 용도 외엔 마주할일이 없다.
+     
+     다른클래스에 속하는가? - Yes
+     한명의 의사에 여러 환자 존재 가능
+     한명의 환자에 여러 의사 존재 가능
+     
+     멤버의 존재를 클래스가 관리 하는가? - No
+     
+     방향성 - 단방향 / 양방향
+     서로 영향을 줄수있디.
+     
+     
+     */</span>
+    
+    <span class="cm">/*의존    Dependency
+     Depends-on
+     나는 다리가 부러져 목발을 짚었다.
+     치료가 완료 된후에 목발이 사라지는것이 아니다.
+     관계의 형태 - 용도 외엔 무관
+     치료가 완료되면 목발 사용 필요 없음
+     일시적으로 사용용도
+     
+     다른클래스에 속하는가? - Yes
+     치료가 끝난후 다른 환자에게 목발 주는것 가능
+     
+     멤버의 존재를 클래스가 관리 하는가? - Yes
+     코드에서 확인
+     멤버에서 필요할때 사용하고 필요없을때 제거한다.
+     
+     방향성 - 단방향
+     
+     */</span>
+    
+    <span class="c1">//상속</span>
+    <span class="c1">//상속 부분에서 다룰예정</span>
+    
+    <span class="c1">//검은색 클래스</span>
+    <span class="c1">//파란색 멤버 클래스</span>
+    <span class="c1">//아래로 내려갈수록 관계가 느슨해진다.</span>
+    <span class="c1">//관계는 예시로만 보지말자</span>
+    <span class="c1">//해당 관계에 대한 예시를 다른 관계로 프로그래밍이 가능하므로</span>
+    <span class="cm">/*
+     구성 - 장기를 이식하는경우 구성관계에서 집합관계가 된다
+     집합 - 게임에서 교환불가 아이템을 만들면 아이템에 대한 관계가 집합관계에서 구성관계가 된다.
+     연계 - 학원선생님 - 연계 / 과외선생님 - 집합
+     의존 - ? 예시가 생각이 안난다.
+     */</span>
+     
+    
+    <span class="c1">//예시는 관계가 이런식이구나 라고 알아두기만하자</span>
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h2 id="구성-관계"><span class="mr-2">구성 관계</span><a href="#구성-관계" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+</pre><td class="rouge-code"><pre><span class="cp">#pragma once
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="c1">//#include &lt;iostream&gt;</span>
+<span class="c1">//Position2D에서 가져올것이므로 삭제 가능</span>
+
+<span class="cp">#include</span> <span class="cpf">"Position2D.h"</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Monster</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span>  <span class="n">m_name</span><span class="p">;</span> <span class="c1">//몬스터 이름</span>
+    
+<span class="c1">//    int     m_x;    //몬스터 x좌표</span>
+<span class="c1">//    int     m_y;    //몬스터 y좌표</span>
+    <span class="c1">//몬스터의 좌표는 많은기능을 포함가능하다.</span>
+    <span class="c1">//좌표만 다른클래스로 만들면 좋지않을까?</span>
+    
+    <span class="err">ㅖ</span>
+    
+    
+<span class="nl">public:</span>
+    <span class="n">Monster</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name_in</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x_in</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">y_in</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name_in</span><span class="p">),</span> <span class="n">m_x</span><span class="p">(</span><span class="n">x_in</span><span class="p">),</span> <span class="n">m_y</span><span class="p">(</span><span class="n">y_in</span><span class="p">)</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="n">moveTo</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">x_target</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">y_target</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_x</span> <span class="o">=</span> <span class="n">x_target</span><span class="p">;</span>
+        <span class="n">m_y</span> <span class="o">=</span> <span class="n">y_target</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Monster</span> <span class="o">&amp;</span> <span class="n">monster</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">monster</span><span class="p">.</span><span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">monster</span><span class="p">.</span><span class="n">m_x</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">monster</span><span class="p">.</span><span class="n">m_y</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+     <span class="p">}</span>
+    
+<span class="p">};</span>
+</pre></table></code></div></div><p>main.cpp</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre><td class="rouge-code"><pre><span class="c1">// 구성관계</span>
+<span class="c1">// Composition</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">"Monster.h"</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//이번에는 앞에서 본 여러 관계중 구성 관계에 해대 알아보자</span>
+    <span class="c1">//게임 예시로 몬스터 클래스로 설명한다.</span>
+    
+    
+    <span class="n">Monster</span> <span class="n">mon1</span><span class="p">(</span><span class="s">"Salson"</span><span class="p">,</span> <span class="n">Position2D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+    
+<span class="c1">//    while(1)    //game loop</span>
+
+    <span class="n">Monster</span> <span class="n">mon2</span><span class="p">(</span><span class="s">"Parsival"</span><span class="p">,</span> <span class="n">Position2D</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+    
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mon1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    
+    <span class="c1">//event</span>
+    <span class="n">mon1</span><span class="p">.</span><span class="n">moveTo</span><span class="p">(</span><span class="n">Position2D</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">mon1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    
+    
+    <span class="c1">//Position2D에 대한 클래스가 몬스터 클래스 말고 유저 클래스에서도 사용가능하다.</span>
+    <span class="c1">//몬스터 클래스가 Position2D를 사용하는 관계를 구성관계라고 한다.</span>
+    <span class="c1">//location이 몬스터의 일부이다.</span>
+    
+    
+    <span class="c1">//몬스터와 좌표의 관계</span>
+    <span class="c1">//전체(몬스터) / 부품(좌표)</span>
+    <span class="c1">//Position2D자체는 다른 클래스에 속할수잇지만</span>
+    <span class="c1">//몬스터의 Position2D - m_location은 다른 클래스에 속하지 못한다.</span>
+    <span class="c1">//멤버의 존재 관리 - 몬스터 소멸시 좌표도 같이 소멸해야한다.</span>
+    <span class="c1">//단방향 -</span>
+    <span class="c1">//몬스터 클래스가 작업할때 Position2D안에 set함수가 있다는것을 알지만</span>
+    <span class="c1">//Position2D가 작업할때 몬스터에 대한 정보는 모르고 몬스터가 set함수 사용했네? set함수 호출해야지 한다.</span>
+    <span class="c1">//쉽게 설명하자면 코드로 다시 넘어가서</span>
+    <span class="c1">//몬스터 클래스에서는 Position2D에 대한 멤버 함수를 사용한다 - moveTo/m_location.set(pos_target);</span>
+    <span class="c1">//Position2D 클래스에서는 몬스터에 대한 멤버 변수를 사용하지 않는다. - 왜냐? 몬스터에 대한 정보를 모르니까</span>
+    
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Monster.h</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre><td class="rouge-code"><pre><span class="cp">#pragma once
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="c1">//#include &lt;iostream&gt;</span>
+<span class="c1">//Position2D에서 가져올것이므로 삭제 가능</span>
+
+<span class="cp">#include</span> <span class="cpf">"Position2D.h"</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Monster</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span>  <span class="n">m_name</span><span class="p">;</span> <span class="c1">//몬스터 이름</span>
+    
+<span class="c1">//    int     m_x;    //몬스터 x좌표</span>
+<span class="c1">//    int     m_y;    //몬스터 y좌표</span>
+    <span class="c1">//몬스터의 좌표는 많은기능을 포함가능하다.</span>
+    <span class="c1">//좌표만 다른클래스로 만들면 좋지않을까?</span>
+    
+    <span class="n">Position2D</span> <span class="n">m_location</span><span class="p">;</span>
+    <span class="c1">//몬스터 클래스가 Position2D를 사용하는 관계를 구성관계라고 한다.</span>
+    <span class="c1">//location이 몬스터의 일부이다.</span>
+    
+    <span class="c1">//Position2D를 서브클래스라고 한다.</span>
+    <span class="c1">//m_x, m_y에 대한 서브클래스 - Position2D</span>
+    
+    <span class="c1">//중요한점 몬스터 클래스에서는 moveTo()에서 Position2D.set()을 이용하여 움직인다를 알고있지만</span>
+    <span class="c1">//몬스터 클래스 입장에서는 set()함수를 호출만 할뿐이지 내부적으로 set()이 어떤식으로 작동을 하는지 알 필요는없다.</span>
+    <span class="c1">//기능을 분리시키고 상위 클래스는 작동이 된다 안된다만 알면되고 어떻게 작동이 되는지는 몰라도 된다.</span>
+    <span class="c1">//오히려 모를수록 좋다. 여러곳에서 기능에 신경을 쓰게 되면 복잡해진다.</span>
+    
+<span class="nl">public:</span>
+    <span class="n">Monster</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name_in</span><span class="p">,</span> <span class="k">const</span> <span class="n">Position2D</span><span class="o">&amp;</span> <span class="n">pos_in</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name_in</span><span class="p">),</span> <span class="n">m_location</span><span class="p">(</span><span class="n">pos_in</span><span class="p">)</span>
+    <span class="p">{}</span>
+    
+    <span class="kt">void</span> <span class="n">moveTo</span><span class="p">(</span><span class="k">const</span> <span class="n">Position2D</span><span class="o">&amp;</span> <span class="n">pos_target</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_location</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">pos_target</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Monster</span> <span class="o">&amp;</span> <span class="n">monster</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">monster</span><span class="p">.</span><span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">monster</span><span class="p">.</span><span class="n">m_location</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+     <span class="p">}</span>
+    
+<span class="p">};</span>
+</pre></table></code></div></div><p>Position2D</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre><td class="rouge-code"><pre><span class="cp">#pragma once
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="c1">//#include &lt;iostream&gt;</span>
+<span class="c1">//Position2D에서 가져올것이므로 삭제 가능</span>
+
+<span class="cp">#include</span> <span class="cpf">"Position2D.h"</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Monster</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span>  <span class="n">m_name</span><span class="p">;</span> <span class="c1">//몬스터 이름</span>
+    
+<span class="c1">//    int     m_x;    //몬스터 x좌표</span>
+<span class="c1">//    int     m_y;    //몬스터 y좌표</span>
+    <span class="c1">//몬스터의 좌표는 많은기능을 포함가능하다.</span>
+    <span class="c1">//좌표만 다른클래스로 만들면 좋지않을까?</span>
+    
+    <span class="n">Position2D</span> <span class="n">m_location</span><span class="p">;</span>
+    <span class="c1">//몬스터 클래스가 Position2D를 사용하는 관계를 구성관계라고 한다.</span>
+    <span class="c1">//location이 몬스터의 일부이다.</span>
+    
+    <span class="c1">//Position2D를 서브클래스라고 한다.</span>
+    <span class="c1">//m_x, m_y에 대한 서브클래스 - Position2D</span>
+    
+    <span class="c1">//중요한점 몬스터 클래스에서는 moveTo()에서 Position2D.set()을 이용하여 움직인다를 알고있지만</span>
+    <span class="c1">//몬스터 클래스 입장에서는 set()함수를 호출만 할뿐이지 내부적으로 set()이 어떤식으로 작동을 하는지 알 필요는없다.</span>
+    <span class="c1">//기능을 분리시키고 상위 클래스는 작동이 된다 안된다만 알면되고 어떻게 작동이 되는지는 몰라도 된다.</span>
+    <span class="c1">//오히려 모를수록 좋다. 여러곳에서 기능에 신경을 쓰게 되면 복잡해진다.</span>
+    
+<span class="nl">public:</span>
+    <span class="n">Monster</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">name_in</span><span class="p">,</span> <span class="k">const</span> <span class="n">Position2D</span><span class="o">&amp;</span> <span class="n">pos_in</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name_in</span><span class="p">),</span> <span class="n">m_location</span><span class="p">(</span><span class="n">pos_in</span><span class="p">)</span>
+    <span class="p">{}</span>
+    
+    <span class="kt">void</span> <span class="n">moveTo</span><span class="p">(</span><span class="k">const</span> <span class="n">Position2D</span><span class="o">&amp;</span> <span class="n">pos_target</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_location</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="n">pos_target</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Monster</span> <span class="o">&amp;</span> <span class="n">monster</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">monster</span><span class="p">.</span><span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">monster</span><span class="p">.</span><span class="n">m_location</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+     <span class="p">}</span>
+    
+<span class="p">};</span>
+</pre></table></code></div></div><h2 id="집합-관계"><span class="mr-2">집합 관계</span><a href="#집합-관계" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>main.cpp</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+</pre><td class="rouge-code"><pre><span class="c1">// 집합 관계</span>
+<span class="c1">// Aggregation</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+#include</span> <span class="cpf">"Lecture.hpp"</span><span class="cp">
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//구성 관계에서는 클래스가 멤버변수의 모든것을 꽉 쥐고 있는 관계라면 그것보다 느슨한 집합관계를 보면서 비교를 해보자</span>
+    
+    <span class="c1">//예시 학교구조</span>
+    <span class="c1">//선생, 학생, 수업</span>
+    
+
+
+    
+    
+    <span class="c1">//Teacher이나 Student에서 비슷한 기능이 많다. 중복된 기능이 많은데</span>
+    <span class="c1">//상속, 템플릿을 배우고 나면 중복되는 부분을 제거할 수 있다.</span>
+    
+    <span class="c1">//Composition Relationship</span>
+    <span class="c1">//test</span>
+    <span class="p">{</span>
+<span class="c1">//        Lecture lec1("Introduction to Computer Programming");</span>
+<span class="c1">//        lec1.assignTeacher(Teacher("Prof. Hong"));</span>
+<span class="c1">//        lec1.registerTeacher(Student("Jack Jack", 0));</span>
+<span class="c1">//        lec1.registerTeacher(Student("Dash", 1));</span>
+<span class="c1">//        lec1.registerTeacher(Student("Violet", 2));</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+<span class="c1">//        Lecture lec2("Computational Thinking");</span>
+<span class="c1">//        lec2.assignTeacher(Teacher("Prof. Good"));</span>
+<span class="c1">//        lec2.registerTeacher(Student("Jack Jack", 0));</span>
+    
+    
+    
+<span class="c1">//        cout &lt;&lt; lec1 &lt;&lt; endl;</span>
+<span class="c1">//        cout &lt;&lt; lec2 &lt;&lt; endl;</span>
+<span class="c1">//</span>
+<span class="c1">//        lec2.study();</span>
+<span class="c1">//</span>
+<span class="c1">//        cout &lt;&lt; lec1 &lt;&lt; endl;</span>
+<span class="c1">//        cout &lt;&lt; lec2 &lt;&lt; endl;</span>
+        
+        <span class="c1">//구성관계에선 lec1의 Jack Jack과 lec2의 Jack Jack 학습능력이 달라진다.</span>
+        <span class="c1">//같은학생이지만 값이 달라지는 현상 발생</span>
+    <span class="p">}</span>
+    
+    <span class="c1">//같은학생이 존재하지만 과목에따라 학생의 주소가 달라지는 문제가 발생한다. 같은 데이터가 아니다.</span>
+    
+    
+    <span class="p">{</span>
+        
+        <span class="c1">//학생 객체를 따로 생성</span>
+        <span class="n">Student</span> <span class="o">*</span><span class="n">std1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="p">(</span><span class="s">"Jack Jack"</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">Student</span> <span class="o">*</span><span class="n">std2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="p">(</span><span class="s">"Dash"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">Student</span> <span class="o">*</span><span class="n">std3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Student</span><span class="p">(</span><span class="s">"Violet"</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+        
+        <span class="c1">//교사 객체 따로 생성</span>
+        <span class="n">Teacher</span> <span class="o">*</span><span class="n">teacher1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Teacher</span><span class="p">(</span><span class="s">"Prof. Hong"</span><span class="p">);</span>
+        <span class="n">Teacher</span> <span class="o">*</span><span class="n">teacher2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Teacher</span><span class="p">(</span><span class="s">"Prof. Good"</span><span class="p">);</span>
+        
+        <span class="c1">//main의 로컬 변수이므로 main이 종료가 되면 소멸이 된다.</span>
+        
+        <span class="c1">//main이 아닌 다른 파일에서도 사용을 해야한다면 동적할당으로 구현을 해야한다.</span>
+        
+        
+        <span class="n">Lecture</span> <span class="n">lec1</span><span class="p">(</span><span class="s">"Introduction to Computer Programming"</span><span class="p">);</span>
+        <span class="n">lec1</span><span class="p">.</span><span class="n">assignTeacher</span><span class="p">(</span><span class="n">teacher1</span><span class="p">);</span>
+        <span class="n">lec1</span><span class="p">.</span><span class="n">registerTeacher</span><span class="p">(</span><span class="n">std1</span><span class="p">);</span>
+        <span class="n">lec1</span><span class="p">.</span><span class="n">registerTeacher</span><span class="p">(</span><span class="n">std2</span><span class="p">);</span>
+        <span class="n">lec1</span><span class="p">.</span><span class="n">registerTeacher</span><span class="p">(</span><span class="n">std3</span><span class="p">);</span>
+        
+        
+        <span class="n">Lecture</span> <span class="n">lec2</span><span class="p">(</span><span class="s">"Computational Thinking"</span><span class="p">);</span>
+        <span class="n">lec2</span><span class="p">.</span><span class="n">assignTeacher</span><span class="p">(</span><span class="n">teacher2</span><span class="p">);</span>
+        <span class="n">lec2</span><span class="p">.</span><span class="n">registerTeacher</span><span class="p">(</span><span class="n">std1</span><span class="p">);</span>
+        
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lec1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"----------lec1"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lec2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"----------lec2"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">lec2</span><span class="p">.</span><span class="n">study</span><span class="p">();</span>
+        
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lec1</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"----------lec1"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">lec2</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"----------lec2"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        
+        <span class="c1">//포인터를 사용한후에 같은 학생에서 학습능력이 같이증가한다.</span>
+        
+        
+        <span class="c1">//동적할당 제거</span>
+        <span class="k">delete</span> <span class="n">std1</span><span class="p">;</span>
+        <span class="k">delete</span> <span class="n">std2</span><span class="p">;</span>
+        <span class="k">delete</span> <span class="n">std3</span><span class="p">;</span>
+        
+        <span class="k">delete</span> <span class="n">teacher1</span><span class="p">;</span>
+        <span class="k">delete</span> <span class="n">teacher2</span><span class="p">;</span>
+        
+        
+        <span class="c1">//Lecture가 학생정보, 교사정보를 공유하고있다.</span>
+        <span class="c1">//항상 이렇게 처리를 할순없다.</span>
+        <span class="c1">//분산처리를 하는경우 컴퓨터마다 처리를 하므로 컴퓨터마다 정보를 가지고있어야한다.</span>
+        <span class="c1">//각각의 기기들이 같은 데이터를 가지고 있어야하므로 업데이트를 해주는 동기화 작업이 필요하다.</span>
+        
+        
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>Lecture.h</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+</pre><td class="rouge-code"><pre><span class="cm">/*
+ 과목 정보 헤더파일
+ */</span>
+
+<span class="cp">#pragma once
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">"Student.hpp"</span><span class="cp">
+#include</span> <span class="cpf">"Teacher.hpp"</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Lecture</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">m_name</span><span class="p">;</span> <span class="c1">//과목 이름</span>
+    
+<span class="c1">//    Teacher teacher;    //교사 이름</span>
+<span class="c1">//</span>
+<span class="c1">//    std::vector&lt;Student&gt; student;   //학생 목록</span>
+
+    
+    <span class="c1">//Lecture instance가 소멸이 되면 해당 과목의 teacher, student도 소멸하게 된다.</span>
+    <span class="c1">//구성 관계에서 즁요한 특징중 하나였다.</span>
+    
+    
+    <span class="c1">//과목의 객체의 멤버 변수가 각각 메모리주소를 다르게 쓰다보니 같은 학생의 경우 다른 학생으로 인식을 하는경우가 발생하는것을 막기 위해</span>
+    <span class="c1">//교사와 학생의 주소값을 사용하면된다.</span>
+    
+    <span class="n">Teacher</span> <span class="o">*</span><span class="n">teacher</span><span class="p">;</span>    <span class="c1">//교사 이름</span>
+    
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">Student</span><span class="o">*&gt;</span> <span class="n">student</span><span class="p">;</span>   <span class="c1">//학생 목록</span>
+    
+    
+<span class="nl">public:</span>
+    <span class="n">Lecture</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">name_in</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name_in</span><span class="p">)</span>
+    <span class="p">{}</span>
+    
+    <span class="o">~</span><span class="n">Lecture</span><span class="p">()</span>
+    <span class="p">{</span>
+        
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="n">assignTeacher</span><span class="p">(</span><span class="n">Teacher</span>  <span class="o">*</span><span class="k">const</span> <span class="n">teacher_input</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">teacher</span> <span class="o">=</span> <span class="n">teacher_input</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="n">registerTeacher</span><span class="p">(</span><span class="n">Student</span> <span class="o">*</span><span class="k">const</span> <span class="n">student_input</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">student</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">student_input</span><span class="p">);</span>
+        
+        <span class="c1">//&amp;student_input !=  &amp;student[0] 주소가 다르다.</span>
+        <span class="c1">//student_input는 복사해서 들어가기 때문에</span>
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="n">study</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="s">" Study "</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    
+        <span class="c1">//&amp; 사용하지않는경우</span>
+        <span class="c1">//값이 증가하지않는다.</span>
+<span class="c1">//        for (auto &amp; e : student) {</span>
+<span class="c1">//            e.setIntel(e.getIntel() + 1);</span>
+<span class="c1">//        }</span>
+    
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span>  <span class="n">e</span> <span class="o">:</span> <span class="n">student</span><span class="p">)</span> <span class="p">{</span>
+            <span class="p">(</span><span class="o">*</span><span class="n">e</span><span class="p">).</span><span class="n">setIntel</span><span class="p">((</span><span class="o">*</span><span class="n">e</span><span class="p">).</span><span class="n">getIntel</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="c1">//이땐 &amp;를사용해도 된다.</span>
+<span class="c1">//        for (auto &amp; e : student) {</span>
+<span class="c1">//            e-&gt;setIntel(e-&gt;getIntel() + 1);</span>
+<span class="c1">//        }</span>
+    <span class="p">}</span>
+    
+    <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Lecture</span> <span class="o">&amp;</span> <span class="n">lecture</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">"Lecture name : "</span> <span class="o">&lt;&lt;</span> <span class="n">lecture</span><span class="p">.</span><span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        
+<span class="c1">//        out &lt;&lt; "Teacher name : " &lt;&lt; lecture.teacher &lt;&lt; std::endl;</span>
+<span class="c1">//</span>
+<span class="c1">//</span>
+<span class="c1">//        for (auto e : lecture.student) {</span>
+<span class="c1">//            out &lt;&lt; e &lt;&lt; std::endl;</span>
+<span class="c1">//        }</span>
+        
+        <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">"Teacher name : "</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">lecture</span><span class="p">.</span><span class="n">teacher</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">e</span> <span class="o">:</span> <span class="n">lecture</span><span class="p">.</span><span class="n">student</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="o">*</span><span class="n">e</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    
+<span class="p">};</span>
+</pre></table></code></div></div><p>Teacher.h</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+</pre><td class="rouge-code"><pre><span class="cm">/*
+ 교사 정보 헤더파일
+ */</span>
+
+<span class="cp">#pragma once
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Teacher</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">m_name</span><span class="p">;</span> <span class="c1">//교사 이름</span>
+    
+<span class="nl">public:</span>
+    <span class="n">Teacher</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">name_in</span> <span class="o">=</span> <span class="s">"No Name"</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name_in</span><span class="p">)</span>
+    <span class="p">{}</span>
+    
+    <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">name_in</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_name</span> <span class="o">=</span> <span class="n">name_in</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">getName</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">m_name</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Teacher</span> <span class="o">&amp;</span> <span class="n">teacher</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">teacher</span><span class="p">.</span><span class="n">m_name</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    
+<span class="p">};</span>
+</pre></table></code></div></div><p>Student.h</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre><td class="rouge-code"><pre><span class="cm">/*
+ 학생 정보 헤더파일
+ */</span>
+
+<span class="cp">#pragma once
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Student</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">m_name</span><span class="p">;</span> <span class="c1">//학생 이름</span>
+    <span class="kt">int</span> <span class="n">m_intel</span><span class="p">;</span>        <span class="c1">//학생 학습 능력치</span>
+    
+<span class="nl">public:</span>
+    <span class="n">Student</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">name_in</span> <span class="o">=</span> <span class="s">"No Name"</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">intel_in</span> <span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name_in</span><span class="p">),</span> <span class="n">m_intel</span><span class="p">(</span><span class="n">intel_in</span><span class="p">)</span>
+    <span class="p">{}</span>
+    
+    <span class="kt">void</span> <span class="n">setName</span><span class="p">(</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">name_in</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_name</span> <span class="o">=</span> <span class="n">name_in</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="n">setIntel</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="o">&amp;</span> <span class="n">intel_in</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_intel</span> <span class="o">=</span> <span class="n">intel_in</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="n">getIntel</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">m_intel</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">getName</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">m_name</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="k">friend</span> <span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="k">operator</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span> <span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">Student</span> <span class="o">&amp;</span> <span class="n">student</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="n">student</span><span class="p">.</span><span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="s">", "</span> <span class="o">&lt;&lt;</span> <span class="n">student</span><span class="p">.</span><span class="n">m_intel</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    
+<span class="p">};</span>
+</pre></table></code></div></div><h2 id="제휴-관계"><span class="mr-2">제휴 관계</span><a href="#제휴-관계" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+</pre><td class="rouge-code"><pre><span class="c1">// 제휴관계</span>
+<span class="c1">// Association</span>
+ 
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">//class Doctor; //Patient에서 Doctor를 사용하기 위해 forward declaration 사용</span>
+<span class="cm">/*
+ 앞선 관계와 달리 Patient와 Doctor가 서로 동등한관계이며, 서로가 서로를 알아야한다.
+ 
+ 파일이 분리가 되면 전방선언을보고 객체의 바디가 어디있는지 알아보기도 힘들고 링킹에러, 미구현사태가 발샐할수았다.
+ 
+ 제휴관계는 앞선 관계보다 덜 사용하는것이 좋다.
+ 어쩔수없으면 사용을 해야한다.
+ 
+ 전방선언을 보게 되면 제휴관계인가보다 생각하고 코드를 읽어나가게 될것이다.
+ 
+ */</span>
+<span class="k">class</span> <span class="nc">Doctor</span><span class="p">;</span>
+
+
+<span class="k">class</span> <span class="nc">Patient</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">string</span> <span class="n">m_name</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">Doctor</span><span class="o">*&gt;</span> <span class="n">m_doctors</span><span class="p">;</span>
+    
+<span class="nl">public:</span>
+    <span class="n">Patient</span><span class="p">(</span><span class="n">string</span> <span class="n">name_in</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name_in</span><span class="p">)</span>
+    <span class="p">{}</span>
+    
+    <span class="c1">//환자를 봐줄 의사를 배치</span>
+    <span class="kt">void</span> <span class="n">addDoctor</span><span class="p">(</span><span class="n">Doctor</span> <span class="o">*</span> <span class="n">new_doctor</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_doctors</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">new_doctor</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    
+    <span class="kt">void</span> <span class="n">meetDoctor</span><span class="p">();</span>
+<span class="c1">//    {</span>
+<span class="c1">//        for(auto &amp; ele : m_doctors)</span>
+<span class="c1">//            cout &lt;&lt; ele-&gt;m_name &lt;&lt; endl;  //전방선언을 하였지만, Doctor클래스에 m_name이 잇는지 m_age가 있는지 모른다.</span>
+<span class="c1">//        //접근 방법 1 : Doctor에서 getName을 만든다.</span>
+<span class="c1">//        //접근 방법 2 : Doctor에서 friend 키워드를 사용하여 Patient에서 접근 가능하게 한다.</span>
+<span class="c1">//    }</span>
+<span class="c1">//</span>
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Doctor</span><span class="p">;</span>
+    
+<span class="p">};</span>
+
+<span class="k">class</span> <span class="nc">Doctor</span>
+<span class="p">{</span>
+<span class="nl">private:</span>
+    <span class="n">string</span> <span class="n">m_name</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">Patient</span><span class="o">*&gt;</span> <span class="n">m_patients</span><span class="p">;</span>
+    
+<span class="nl">public:</span>
+    <span class="n">Doctor</span><span class="p">(</span><span class="n">string</span> <span class="n">name_in</span><span class="p">)</span> <span class="o">:</span> <span class="n">m_name</span><span class="p">(</span><span class="n">name_in</span><span class="p">)</span>
+    <span class="p">{}</span>
+    
+    <span class="c1">//의사가 치료할 환자를 배치</span>
+    <span class="kt">void</span> <span class="n">addPatient</span><span class="p">(</span><span class="n">Patient</span> <span class="o">*</span> <span class="n">new_patient</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">m_patients</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">new_patient</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="n">meetPatient</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span> <span class="n">ele</span> <span class="o">:</span> <span class="n">m_patients</span><span class="p">)</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Meet Patient : "</span> <span class="o">&lt;&lt;</span> <span class="n">ele</span><span class="o">-&gt;</span><span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="c1">//접근 방법 1 : Doctor에서 getName을 만든다.</span>
+        <span class="c1">//접근 방법 2 : Doctor에서 friend 키워드를 사용하여 Patient에서 접근 가능하게 한다.</span>
+    <span class="p">}</span>
+    
+    <span class="k">friend</span> <span class="k">class</span> <span class="nc">Patient</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+
+<span class="c1">//전방선언으로 인해 함수 구현을 밖에다 해주어야한다.</span>
+<span class="kt">void</span> <span class="n">Patient</span><span class="o">::</span><span class="n">meetDoctor</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span> <span class="n">ele</span> <span class="o">:</span> <span class="n">m_doctors</span><span class="p">)</span>
+            <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="k">this</span><span class="o">-&gt;</span><span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="s">" Meet Doctor : "</span> <span class="o">&lt;&lt;</span> <span class="n">ele</span><span class="o">-&gt;</span><span class="n">m_name</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+        <span class="c1">//접근 방법 1 : Doctor에서 getName을 만든다.</span>
+        <span class="c1">//접근 방법 2 : Doctor에서 friend 키워드를 사용하여 Patient에서 접근 가능하게 한다.</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//구성, 집합은 한곳이 전체, 한곳이 부품이 되는구성을 가지고있엇다.</span>
+    <span class="c1">//몬스터/좌표 , 과목/(교사, 학생)</span>
+    
+    <span class="c1">//이번에는 구분이 명확하지않은 관계인제휴 관계를 알아보자</span>
+    <span class="c1">//예시 의사와 환자의 관계</span>
+    
+    <span class="n">Patient</span> <span class="o">*</span><span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Patient</span><span class="p">(</span><span class="s">"Jack Jack"</span><span class="p">);</span>
+    <span class="n">Patient</span> <span class="o">*</span><span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Patient</span><span class="p">(</span><span class="s">"Dash"</span><span class="p">);</span>
+    <span class="n">Patient</span> <span class="o">*</span><span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Patient</span><span class="p">(</span><span class="s">"Violet"</span><span class="p">);</span>
+    
+    <span class="n">Doctor</span> <span class="o">*</span><span class="n">d1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Doctor</span><span class="p">(</span><span class="s">"Doctor K"</span><span class="p">);</span>
+    <span class="n">Doctor</span> <span class="o">*</span><span class="n">d2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Doctor</span><span class="p">(</span><span class="s">"Doctor L"</span><span class="p">);</span>
+    
+    <span class="c1">//patients meet doctors</span>
+    
+    <span class="c1">//p1이 d1을 만난다면</span>
+    <span class="n">p1</span><span class="o">-&gt;</span><span class="n">addDoctor</span><span class="p">(</span><span class="n">d1</span><span class="p">);</span>
+    <span class="c1">//d1에 입장에선 p1이 환자로서 만나진다.</span>
+    <span class="n">d1</span><span class="o">-&gt;</span><span class="n">addPatient</span><span class="p">(</span><span class="n">p1</span><span class="p">);</span>
+    <span class="c1">//p1과 d1 둘은 상호적이다.</span>
+    
+    
+    <span class="n">p2</span><span class="o">-&gt;</span><span class="n">addDoctor</span><span class="p">(</span><span class="n">d2</span><span class="p">);</span>
+    <span class="c1">//doctors meet patients</span>
+    <span class="n">d2</span><span class="o">-&gt;</span><span class="n">addPatient</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
+    
+    <span class="n">p2</span><span class="o">-&gt;</span><span class="n">addDoctor</span><span class="p">(</span><span class="n">d1</span><span class="p">);</span>
+    <span class="n">d1</span><span class="o">-&gt;</span><span class="n">addPatient</span><span class="p">(</span><span class="n">p2</span><span class="p">);</span>
+    
+    <span class="c1">//p1 환자가 만나는 의사 출력</span>
+    <span class="n">p1</span><span class="o">-&gt;</span><span class="n">meetDoctor</span><span class="p">();</span>
+    <span class="c1">//p2 환자가 만나는 의사 출력</span>
+    <span class="n">p2</span><span class="o">-&gt;</span> <span class="n">meetDoctor</span><span class="p">();</span>
+    
+    <span class="c1">//d1이 만나는 환자 출력</span>
+    <span class="n">d1</span><span class="o">-&gt;</span><span class="n">meetPatient</span><span class="p">();</span>
+    
+    
+    <span class="c1">//동적할당 제거</span>
+    <span class="k">delete</span> <span class="n">p1</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="n">p2</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="n">p3</span><span class="p">;</span>
+    
+    <span class="k">delete</span> <span class="n">d1</span><span class="p">;</span>
+    <span class="k">delete</span> <span class="n">d2</span><span class="p">;</span>
+    
+    
+    <span class="c1">//정리</span>
+    <span class="c1">//의사 환자 - 제휴관계</span>
+    <span class="c1">//서로가 내부에 상대방을 멤버로서 가지고있게 된다.</span>
+    <span class="c1">//각각 자기 자신과 상호작용 해야하는 의사 컨테이너, 환자 컨테이너를 가지고있다.</span>
+    <span class="c1">//한쪽에서는 전방선언을 해주어야한다.</span>
+    
+    
+    <span class="c1">//구현팁</span>
+    <span class="c1">//벡터 포인터를 사용하지않고 환자의 ID로 찾는 방식으로 구현이 가능하다.</span>
+    
+    
+    <span class="c1">//반사적 제휴관계?</span>
+    <span class="c1">//의사가 의사를 만나는 관계</span>
+    
+    <span class="c1">//서로가 동등한 관계를가진다.</span>
+    <span class="c1">//용도외엔 무관하다.</span>
+    <span class="c1">//서로가 서로를 관리를 하지 않는다. - 의사 클래스에서 환자클래스의 기록을 지운다던가 생성하던가 그런 행위를 하지않는다.</span>
+    
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div><h2 id="의존-관계"><span class="mr-2">의존 관계</span><a href="#의존-관계" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>main.cpp</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+</pre><td class="rouge-code"><pre><span class="c1">// 의존 관계</span>
+<span class="c1">// Dependencies</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">"Worker.hpp"</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">//시간 재는 클래스</span>
+<span class="c1">//자주 사용할 기능들은 클래스로 묶어서 관리 한다.</span>
+<span class="c1">//class Timer</span>
+<span class="c1">//{</span>
+<span class="c1">//    using clock_t = std::chrono::high_resolution_clock;</span>
+<span class="c1">//    using second_t = std::chrono::duration&lt;double, std::ratio&lt;1&gt;&gt;;</span>
+<span class="c1">//</span>
+<span class="c1">//    std::chrono::time_point&lt;clock_t&gt; start_time = clock_t::now();</span>
+<span class="c1">//</span>
+<span class="c1">//public:</span>
+<span class="c1">//    void elapsed()</span>
+<span class="c1">//    {</span>
+<span class="c1">//        std::chrono::time_point&lt;clock_t&gt; end_time = clock_t::now();</span>
+<span class="c1">//</span>
+<span class="c1">//        cout &lt;&lt; std::chrono::duration_cast&lt;second_t&gt;(end_time - start_time).count() &lt;&lt; endl;</span>
+<span class="c1">//    }</span>
+<span class="c1">//};</span>
+
+
+<span class="c1">//class Worker</span>
+<span class="c1">//{</span>
+<span class="c1">//public:</span>
+<span class="c1">//    void doSomething()</span>
+<span class="c1">//    {</span>
+<span class="c1">//        Timer timer;</span>
+<span class="c1">//        </span>
+<span class="c1">//        //do some work here</span>
+<span class="c1">//        </span>
+<span class="c1">//        </span>
+<span class="c1">//        timer.elapsed();</span>
+<span class="c1">//    }</span>
+<span class="c1">//    //함수가 끝나면 Timer는 사라진다.</span>
+<span class="c1">//    //Timer에 대해 Worker는 알 필요가 없다.</span>
+<span class="c1">//};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//앞에서 배운 3가지 관계보다 연결 강도가 느슨한 의존관계에 대해 알아보자</span>
+    
+    <span class="n">Worker</span><span class="p">().</span><span class="n">doSomething</span><span class="p">();</span>
+
+    
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="c1">//좀더 깔끔하게 구현이 된다.</span>
+<span class="c1">//가장 많이 사용할 패턴이다.</span>
+
+
+<span class="c1">//정리</span>
+<span class="c1">//잠깐 가져다 쓰는 관계</span>
+<span class="c1">//용도 외엔 무관</span>
+<span class="c1">//다른 관계들은 클래스에서 사용할 다른 클래스에 대해 알고있엇어야하지만, 의존관계는 클래스상에선 알필요가없다.</span>
+
+</pre></table></code></div></div><p>Timer.h</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+</pre><td class="rouge-code"><pre><span class="cm">/*
+ Timer 헤더 파일 분리
+ */</span>
+
+<span class="cp">#pragma once
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;random&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;chrono&gt;</span><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">Timer</span>
+<span class="p">{</span>
+    <span class="k">using</span> <span class="kt">clock_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">high_resolution_clock</span><span class="p">;</span>
+    <span class="k">using</span> <span class="n">second_t</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">ratio</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;&gt;</span><span class="p">;</span>
+    
+    <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">time_point</span><span class="o">&lt;</span><span class="kt">clock_t</span><span class="o">&gt;</span> <span class="n">start_time</span> <span class="o">=</span> <span class="kt">clock_t</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+    
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">elapsed</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">time_point</span><span class="o">&lt;</span><span class="kt">clock_t</span><span class="o">&gt;</span> <span class="n">end_time</span> <span class="o">=</span> <span class="kt">clock_t</span><span class="o">::</span><span class="n">now</span><span class="p">();</span>
+        
+        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">chrono</span><span class="o">::</span><span class="n">duration_cast</span><span class="o">&lt;</span><span class="n">second_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">).</span><span class="n">count</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></table></code></div></div><p>Worker.h</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+</pre><td class="rouge-code"><pre><span class="cm">/*
+ Worker 헤더 파일 분리
+ */</span>
+
+<span class="cp">#pragma once
+</span>
+<span class="c1">//#include "Timer.hpp"</span>
+<span class="c1">//Worker 헤더는 Timer에 대해 무엇인가 알기 위해 include함</span>
+<span class="c1">//Worker cpp파일을 생성해서 옮기면</span>
+
+<span class="c1">//Worker를 선언할때 Timer에 대해 알 필요가 없으므로 include 제거 가능 </span>
+
+<span class="k">class</span> <span class="nc">Worker</span>
+<span class="p">{</span>
+<span class="nl">public:</span>
+    <span class="kt">void</span> <span class="n">doSomething</span><span class="p">();</span>
+    <span class="c1">//함수가 끝나면 Timer는 사라진다.</span>
+    <span class="c1">//Timer에 대해 Worker는 알 필요가 없다.</span>
+<span class="p">};</span>
+
+
+<span class="c1">//의존 관계에서는 선언부에서는 Timer에 대해 몰라도 된다.</span>
+<span class="c1">//바디부분에서만 알면된다.</span>
+</pre></table></code></div></div><p>Worker.cpp</p><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre><td class="rouge-code"><pre><span class="cp">#include</span> <span class="cpf">"Worker.hpp"</span><span class="cp">
+#include</span> <span class="cpf">"Timer.hpp"</span><span class="cp">
+</span>
+<span class="kt">void</span> <span class="n">Worker</span><span class="o">::</span><span class="n">doSomething</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Timer</span> <span class="n">timer</span><span class="p">;</span>
+    
+    <span class="c1">//do some work here</span>
+    
+    <span class="n">timer</span><span class="p">.</span><span class="n">elapsed</span><span class="p">();</span>
+<span class="p">}</span>
+
+</pre></table></code></div></div><h2 id="컨테이너-클래스"><span class="mr-2">컨테이너 클래스</span><a href="#컨테이너-클래스" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><div class="language-cpp highlighter-rouge"><div class="code-header"> <span data-label-text="Cpp"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+</pre><td class="rouge-code"><pre><span class="c1">// 컨테이너 클래스</span>
+<span class="c1">// Container Class</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//이번에는 다른 클래스들을 담는역할을 하는 컨테이너 클래스를 알아보자</span>
+    
+    
+    <span class="c1">//지금까지 사용한 컨테이너 클래스</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">int_vec</span><span class="p">;</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="o">&gt;</span> <span class="n">int_arr</span><span class="p">;</span>
+    
+    <span class="c1">//컨테이너 종류가 많다.</span>
+    <span class="c1">//~가 ~의 멤버다 memver-of로 표시가 가능하다.</span>
+    <span class="c1">//int가 int_vec의 멤버이다.</span>
+    <span class="c1">//int가 int_arr의 멤버이다.</span>
+    
+    
+    <span class="c1">//직접 구현 해보기</span>
+    <span class="c1">//int 자료형이 담기는 array를 직접 구현해보자</span>
+    <span class="cm">/*
+     Constructor
+     Destructor
+     initialize
+     reset
+     resize
+     insertBefore
+     remove
+     push_back
+     */</span>
+    
+    
+    <span class="cm">/*
+     IntArry my_arr{1,3,5,7,9};
+     my_arr.insertBefore(10,1);     //1,10,3,5,7,9
+     my_arr.remove(3);              //1,10,3,7,9
+     my_array.push_back(13);        //1,10,3,7,9,13
+     */</span>
+    
+    <span class="c1">//사용법을 이해하는것보다</span>
+    <span class="c1">//직접 구현을 한번해보고 컨테이너에 대해 알아보자</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/language/'>Language</a>, <a href='/categories/c/'>C++</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/c/" class="post-tag no-text-decoration" >c++</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=%5BC%2B%2B%5D+Chapter.10+%EA%B0%9D%EC%B2%B4%EB%93%A4+%EC%82%AC%EC%9D%B4%EC%9D%98+%EA%B4%80%EA%B3%84%EC%97%90+%EB%8C%80%ED%95%B4+-+YdO-ObY&url=https%3A%2F%2Fydo-oby.github.io%2F%2Fposts%2FCpp-Ch10%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=%5BC%2B%2B%5D+Chapter.10+%EA%B0%9D%EC%B2%B4%EB%93%A4+%EC%82%AC%EC%9D%B4%EC%9D%98+%EA%B4%80%EA%B3%84%EC%97%90+%EB%8C%80%ED%95%B4+-+YdO-ObY&u=https%3A%2F%2Fydo-oby.github.io%2F%2Fposts%2FCpp-Ch10%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fydo-oby.github.io%2F%2Fposts%2FCpp-Ch10%2F&text=%5BC%2B%2B%5D+Chapter.10+%EA%B0%9D%EC%B2%B4%EB%93%A4+%EC%82%AC%EC%9D%B4%EC%9D%98+%EA%B4%80%EA%B3%84%EC%97%90+%EB%8C%80%ED%95%B4+-+YdO-ObY" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/posts/Day1/">[개발일지] 1일차 개발일지 작성시작</a><li><a href="/posts/Day2/">[개발일지] 2일차 개발일지 - 기획시작 1</a><li><a href="/posts/Cpp-Ch10/">[C++] Chapter.10 객체들 사이의 관계에 대해</a><li><a href="/posts/Cpp-Ch15/">[C++] Chapter.15 의미론적 이동과 스마트포인터</a><li><a href="/posts/Cpp-Ch14/">[C++] Chapter.14 예외처리</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/c/">c++</a> <a class="post-tag" href="/tags/github-pages/">github pages</a> <a class="post-tag" href="/tags/jekyll/">jekyll</a> <a class="post-tag" href="/tags/c/">c#</a> <a class="post-tag" href="/tags/unity/">unity</a> <a class="post-tag" href="/tags/chripy/">chripy</a> <a class="post-tag" href="/tags/github/">github</a></div></div></div><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@1.0.1/dist/bootstrap-toc.min.js"></script><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc" data-toggle="toc"></nav></div></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4"><div id="related-posts" class="mt-5 mb-2 mb-sm-4"><h3 class="pt-2 mt-1 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/posts/Cpp-Ch12/"><div class="card-body"> <em class="small" data-ts="1664025619" data-df="ll" > Sep 24, 2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>[C++] Chapter.12 가상 함수들</h3><div class="text-muted small"><p> 다형성의 기본 개념 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 6...</p></div></div></a></div><div class="card"> <a href="/posts/Cpp-Ch13/"><div class="card-body"> <em class="small" data-ts="1664025619" data-df="ll" > Sep 24, 2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>[C++] Chapter.13 템플릿</h3><div class="text-muted small"><p> 함수 템플릿 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 // 함수 템플릿 #include &amp;lt;...</p></div></div></a></div><div class="card"> <a href="/posts/Cpp-Ch14/"><div class="card-body"> <em class="small" data-ts="1664025619" data-df="ll" > Sep 24, 2022 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>[C++] Chapter.14 예외처리</h3><div class="text-muted small"><p> 예외처리의 기본 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 ...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/posts/Cpp-Ch6/" class="btn btn-outline-primary" prompt="Older"><p>[C++] Chapter.6 행렬, 문자열, 포인터, 참조</p></a> <a href="/posts/Cpp-Ch11/" class="btn btn-outline-primary" prompt="Newer"><p>[C++] Chapter.11 상속</p></a></div></div></div><footer class="row pl-3 pr-3"><div class="col-12 d-flex justify-content-between align-items-center text-muted pl-0 pr-0"><div class="footer-left"><p class="mb-0"> © 2022 <a href="https://github.com/YdO-ObY">YdO-ObY</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0"> Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></footer></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/c/">c++</a> <a class="post-tag" href="/tags/github-pages/">github pages</a> <a class="post-tag" href="/tags/jekyll/">jekyll</a> <a class="post-tag" href="/tags/c/">c#</a> <a class="post-tag" href="/tags/unity/">unity</a> <a class="post-tag" href="/tags/chripy/">chripy</a> <a class="post-tag" href="/tags/github/">github</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a><div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-animation="true" data-autohide="false"><div class="toast-header"> <button type="button" class="ml-2 ml-auto close" data-dismiss="toast" aria-label="Close"> <span aria-hidden="true">&times;</span> </button></div><div class="toast-body text-center pt-0"><p class="pl-2 pr-2 mb-3">A new version of content is available.</p><button type="button" class="btn btn-primary" aria-label="Update"> Update </button></div></div><script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No results found.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lozad/dist/lozad.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/en.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/app.js"></script>
