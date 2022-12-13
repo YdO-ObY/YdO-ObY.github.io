@@ -5,7 +5,7 @@ categories: [GameDesign]
 tags: [GameDesign]
 ---
 
-앞서 컨텐츠 기획, 레벨 디자인은 어떤식으로 진행이 되는지 알게 되었다.
+이전에 컨텐츠 기획, 레벨 디자인은 어떤식으로 진행이 되는지 알게 되었다.
 
 
 이번에는 게임 기획의 기본 구조중 <font style="color:green">밸런싱</font>은 어떤식 진행이 되는지 알아보자
